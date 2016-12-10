@@ -1,7 +1,8 @@
 # referrals
 
-[![Code Climate](https://codeclimate.com/github/psagan/referrals/badges/gpa.svg)](https://codeclimate.com/github/psagan/referrals)
 [![Build Status](https://travis-ci.org/psagan/referrals.svg?branch=master)](https://travis-ci.org/psagan/referrals)
+[![Code Climate](https://codeclimate.com/github/psagan/referrals/badges/gpa.svg)](https://codeclimate.com/github/psagan/referrals)
+[![Gem Version](https://badge.fury.io/rb/referrals.svg)](https://badge.fury.io/rb/referrals)
 
 Referrals engine dedicated for Ruby on Rails based applications
 
