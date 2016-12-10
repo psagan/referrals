@@ -7,16 +7,16 @@ require "referrals/version"
 Gem::Specification.new do |s|
   s.name        = "referrals"
   s.version     = Referrals::VERSION
-  s.authors     = ["psagan"]
+  s.authors     = ["Patryk Sagan"]
   s.email       = ["patryk.sagan@icloud.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Referrals."
-  s.description = "TODO: Description of Referrals."
+  s.homepage    = "https://github.com/psagan/referrals"
+  s.summary     = "Referrals engine dedicated for Ruby on Rails based applications"
+  s.description = "Responsible for handling referral links and all referral related operations like capture actions, show partner dashboard, payments etc."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails", "~> 5.0.0", ">= 5.0.0.1"
+  s.add_dependency "rails"
 
   s.add_development_dependency "sqlite3"
 end
