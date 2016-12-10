@@ -1,4 +1,7 @@
 # referrals
+
+[![Code Climate](https://codeclimate.com/github/psagan/referrals/badges/gpa.svg)](https://codeclimate.com/github/psagan/referrals)
+
 Referrals engine dedicated for Ruby on Rails based applications
 
 # Referrals
