@@ -9,13 +9,18 @@ module Referrals
     private
 
     def handle_pid
-      # @todo - make configurable
-      if params[:pid] && !cookies[:referrals_pid]
+      # @todo - make configurable name of parameter
+      # @todo - make configurable override partner id
+      if params[:pid] && !cookies[:referrals_pid] && partner
         cookies[:referrals_pid] = {
-            value: params[:pid],
+            value: partner.id,
             expires: 1.year.from_now #@todo -make configurable
         }
       end
+    end
+
+    def partner
+      @partner ||= Referrals::Partner.find_by_id(params[:pid])
     end
   end
 end
