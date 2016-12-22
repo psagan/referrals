@@ -11,6 +11,8 @@ RSpec.describe Referrals::CookiesConcern, type: :controller do
   end
 
   describe '#handle_pid' do
+    let(:stub_cookies) { HashWithIndifferentAccess.new }
+
     context "when no pid in request" do
       before { get :fake_action }
       it "does not set referral cookie" do
@@ -26,23 +28,17 @@ RSpec.describe Referrals::CookiesConcern, type: :controller do
           it "set cookie value to partner id" do
             get :fake_action, params: { pid: partner.id }
 
-            expected = {
-                value: partner.id,
-                expires: 1.year.from_now
-            }
             expect(response.cookies['referrals_pid']).to eq(partner.id.to_s)
           end
 
           it "set cookie expiration time" do
             date = 1.year.from_now
             allow_any_instance_of(ActiveSupport::Duration).to receive(:from_now).and_return(date)
-            # thanks to http://bit.ly/2hXQka9
-            stub_cookie_jar = HashWithIndifferentAccess.new
-            allow(controller).to receive(:cookies).and_return(stub_cookie_jar)
+            allow(controller).to receive(:cookies).and_return(stub_cookies)
 
             get :fake_action, params: { pid: partner.id }
 
-            expect(stub_cookie_jar['referrals_pid'][:expires]).to eq(date)
+            expect(stub_cookies['referrals_pid'][:expires]).to eq(date)
           end
 
         end
@@ -56,13 +52,20 @@ RSpec.describe Referrals::CookiesConcern, type: :controller do
         end
       end
 
-      context "when cookie set" do
+      context "when cookie already set" do
+        let!(:partner) { FactoryGirl.create(:partner) }
+        before do
+          stub_cookies[:referrals_pid] = { value: 10 }
+          allow(controller).to receive(:cookies).and_return(stub_cookies)
+        end
 
+        it "does not overwrite the value" do
+          get :fake_action, params: { pid: partner.id }
+
+          expect(stub_cookies[:referrals_pid][:value]).to eq(10)
+        end
       end
     end
 
-    context "when no pid in request" do
-
-    end
   end
 end
