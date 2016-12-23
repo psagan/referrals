@@ -41,12 +41,29 @@ bin/rails db:migrate
 
 
 ## Integration with Rails
-**Controller helper**
+**Controller helpers**
+
+Handling referral cookies
 ```ruby
 # in your controller where you want to have cookies handling available
 class ApplicationController < ActionController::Base
   include Referrals::CookiesConcern  
   # ...  
+end  
+```
+
+Assigning referrals to partner
+```ruby
+# in your controller where you want to assign user to partner
+class RegistrationsController < ActionController::Base
+  include Referrals::OperationsConcern  
+  # ...  
+  def register
+    # eg: assign referrals to partner when user
+    # just registered
+    # Now resource under 'registered_user' will be assigned to partner
+    assign_referral_to_partner(registered_user)
+  end
 end  
 ```
 
