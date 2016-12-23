@@ -12,7 +12,7 @@ module Referrals
     end
 
     def make_partner!
-      Referrals::Partner.new(user: self).save
+      Referrals::Partner.new(user: self).save unless partner?
     end
   end
 end
