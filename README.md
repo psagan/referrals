@@ -29,6 +29,15 @@ Or install it yourself as:
 ```bash
 $ gem install referrals
 ```
+## Integration with Rails
+**Controller helper**
+```ruby
+# in your controller where you want have cookies handling available
+class ApplicationController < ActionController::Base
+  include Referrals::CookiesConcern
+  # ...
+end  
+```
 
 ## Contributing
 Contribution directions go here.
