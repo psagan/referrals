@@ -29,7 +29,7 @@ After that run:
 ```bash
 bin/rails referrals:install:migrations
 ```
-It will copy engines migrations to your project.
+It will copy engine's migrations to your project.
 Now migrate:
 ```bash
 # Rails 4
