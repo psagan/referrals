@@ -43,4 +43,22 @@ RSpec.describe Referrals::Referable, type: :model do
     end
   end
 
+  describe "relations" do
+    describe "partnership" do
+      context "when user is partner" do
+        let!(:partner) { FactoryGirl.create(:partner, user: user) }
+
+        it "returns proper record" do
+          expect(user.partnership).to eq(partner)
+        end
+      end
+
+      context "when user is not partner" do
+        it "returns nil" do
+          expect(user.partnership).to eq(nil)
+        end
+      end
+    end
+  end
+
 end
