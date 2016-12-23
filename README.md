@@ -25,6 +25,21 @@ And then execute:
 $ bundle
 ```
 
+After that run:
+```bash
+bin/rails referrals:install:migrations
+```
+It will copy engines migrations to your project.
+Now migrate:
+```bash
+# Rails 4
+bin/rake db:migrate
+
+# Rails 5
+bin/rails db:migrate
+```
+
+
 ## Integration with Rails
 **Controller helper**
 ```ruby
