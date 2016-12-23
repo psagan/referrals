@@ -3,8 +3,8 @@ module Referrals
 
     def assign_referral_to_partner(referral)
       return unless pid = cookies[:referrals_pid]
-      partner = ::Referrals::Partner.find(pid)
-      partner.referrals << referral
+      partner = ::Referrals::Partner.find_by_id(pid)
+      partner.referrals << referral if partner
     end
   end
 end
