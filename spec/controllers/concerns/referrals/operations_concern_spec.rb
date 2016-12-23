@@ -15,7 +15,8 @@ RSpec.describe Referrals::OperationsConcern, type: :controller do
   end
 
   describe "#assign_user_to_partner" do
-    let!(:partner_user) { FactoryGirl.create(:user).tap {|u| u.make_partner!} }
+    let!(:partner_user) { FactoryGirl.create(:user) }
+    let!(:partner) { FactoryGirl.create(:partner, user: partner_user) }
     let!(:user) { FactoryGirl.create(:user, email: 'user@example.com') }
 
 
