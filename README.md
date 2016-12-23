@@ -25,10 +25,6 @@ And then execute:
 $ bundle
 ```
 
-Or install it yourself as:
-```bash
-$ gem install referrals
-```
 ## Integration with Rails
 **Controller helper**
 ```ruby
