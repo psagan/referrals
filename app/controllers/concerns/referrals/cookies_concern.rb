@@ -20,7 +20,7 @@ module Referrals
     end
 
     def partner
-      @partner ||= Referrals::Partner.find_by_id(params[:pid])
+      @partner ||= Referrals::Partner.find_by(id: params[:pid])
     end
   end
 end
