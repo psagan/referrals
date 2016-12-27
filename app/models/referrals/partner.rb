@@ -3,6 +3,7 @@ module Referrals
     has_many :referral_users
     has_many :referrals, through: :referral_users
     belongs_to :user, class_name: Referrals.user_class, foreign_key: :user_id
+    has_many :income_histories
 
     validates :user, uniqueness: true, presence: true
   end

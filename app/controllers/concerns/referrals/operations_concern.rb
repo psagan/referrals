@@ -4,6 +4,7 @@ module Referrals
     private
 
     def assign_referral_to_partner(referral)
+      #@todo - move logic to dedicated service
       return unless pid = cookies[:referrals_pid]
       # using find_by id to not raise exception when partner not found
       # possible scenario that user has old cookie and partner is no longer partner
@@ -14,10 +15,18 @@ module Referrals
       partner.referrals << referral if partner && !::Referrals::ReferralUser.find_by(referral: referral)
     end
 
-    def capture_referral_action(referral)
+    def capture_referral_action(referral, amount, info)
+      # @todo - move logic to dedicated service
       partner = referral.referral_user.try(:partner)
-      return unless partner
 
+      return unless partner
+      partner.income_histories.create(
+        referral: referral,
+        amount: amount,
+        share: partner.share,
+        share_amount: partner.share * amount,
+        info: info
+      )
     end
   end
 end
