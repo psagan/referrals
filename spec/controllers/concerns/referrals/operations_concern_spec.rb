@@ -30,6 +30,22 @@ RSpec.describe Referrals::OperationsConcern, type: :controller do
           expect { get :fake_action }.to change{ partner.referrals.count }.by(1)
         end
       end
+
+      context "when user is already assigned to partner" do
+        let!(:referral_user) { FactoryGirl.create('referral_user', referral: user, partner: partner) }
+        it "does not assign it once again" do
+          expect { get :fake_action }.to change{ ::Referrals::ReferralUser.count }.by(0)
+        end
+      end
+
+      context "when user is assigned to other partner" do
+        let!(:partner_user_2) { FactoryGirl.create(:user) }
+        let!(:partner_2) { FactoryGirl.create(:partner, user: partner_user_2) }
+        let!(:referral_user) { FactoryGirl.create('referral_user', referral: user, partner: partner_2) }
+        it "does not assign user to new partner" do
+          expect { get :fake_action }.to change{ ::Referrals::ReferralUser.count }.by(0)
+        end
+      end
     end
 
     context "when no referrals_pid info in cookie" do

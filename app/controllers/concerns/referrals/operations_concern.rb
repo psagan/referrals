@@ -8,7 +8,8 @@ module Referrals
       # so we don't want to raise exceptions on production because of such
       # scenario
       partner = ::Referrals::Partner.find_by(id: pid)
-      partner.referrals << referral if partner
+      # @todo - make customizable if user can be assigned to other partner
+      partner.referrals << referral if partner && !::Referrals::ReferralUser.find_by(referral: referral)
     end
   end
 end
