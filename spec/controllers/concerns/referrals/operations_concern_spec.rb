@@ -24,8 +24,11 @@ RSpec.describe Referrals::OperationsConcern, type: :controller do
       before do
         request.cookies[:referrals_pid] = Referrals::Partner.first.id
       end
-      it "assigns user to partner" do
-        expect { get :fake_action }.to change{ partner.referrals.count }.by(1)
+
+      context "when user is not yet assigned to partner" do
+        it "assigns user to partner" do
+          expect { get :fake_action }.to change{ partner.referrals.count }.by(1)
+        end
       end
     end
 
