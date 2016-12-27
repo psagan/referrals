@@ -16,15 +16,15 @@ RSpec.describe Referrals::OperationsConcern, type: :controller do
       render plain: 'ok'
     end
   end
-  before do
-    routes.draw { get 'fake_action' => 'anonymous#fake_action' }
-    routes.draw { get 'fake_action_2' => 'anonymous#fake_action_2' }
-  end
+
   let!(:partner_user) { FactoryGirl.create(:user) }
   let!(:partner) { FactoryGirl.create(:partner, user: partner_user) }
   let!(:user) { FactoryGirl.create(:user, email: 'user@example.com') }
 
   describe "#assign_user_to_partner" do
+    before do
+      routes.draw { get 'fake_action' => 'anonymous#fake_action' }
+    end
     context "when referrals_pid in cookie" do
       before do
         request.cookies[:referrals_pid] = Referrals::Partner.first.id
@@ -65,6 +65,10 @@ RSpec.describe Referrals::OperationsConcern, type: :controller do
   describe "#capture_referral_action" do
     let(:amount) { 1000 }
     let(:info) { 'Payment for subscription' }
+
+    before do
+      routes.draw { get 'fake_action_2' => 'anonymous#fake_action_2' }
+    end
 
     context "when referral is assigned to partner" do
       let!(:referral_user) { FactoryGirl.create('referral_user', referral: user, partner: partner) }
