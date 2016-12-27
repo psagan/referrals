@@ -1,6 +1,8 @@
 module Referrals
   module OperationsConcern
 
+    private
+
     def assign_referral_to_partner(referral)
       return unless pid = cookies[:referrals_pid]
       # using find_by id to not raise exception when partner not found
