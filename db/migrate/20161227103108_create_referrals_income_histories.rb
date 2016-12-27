@@ -1,4 +1,4 @@
-class CreateReferralsIncomeHistories < ActiveRecord::Migration[5.0]
+class CreateReferralsIncomeHistories < ActiveRecord::Migration
   def change
     create_table :referrals_income_histories do |t|
       t.partner :association
