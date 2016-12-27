@@ -13,5 +13,11 @@ module Referrals
       # @todo - make customizable if user can be assigned to other partner
       partner.referrals << referral if partner && !::Referrals::ReferralUser.find_by(referral: referral)
     end
+
+    def capture_referral_action(referral)
+      partner = referral.referral_user.try(:partner)
+      return unless partner
+
+    end
   end
 end
