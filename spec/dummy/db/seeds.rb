@@ -8,14 +8,14 @@ q = 10
     created_at = n < (q/2) ? 1.month.ago : DateTime.now
     User.create(email: "m#{i}_#{n}@example.com")
     User.last.tap do |u|
-      partner.reload.partnership.referrals << u
+      partner.reload.partner.referrals << u
       Referrals::IncomeHistory.create(
           referral: u,
-          partner: partner.partnership,
+          partner: partner.partner,
           info: 'Payment for subscription',
           amount_cents: 2077,
-          share: partner.partnership.share,
-          share_amount_cents: partner.partnership.share * 2077,
+          share: partner.partner.share,
+          share_amount_cents: partner.partner.share * 2077,
           created_at: created_at
       )
     end

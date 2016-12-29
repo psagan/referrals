@@ -1,7 +1,7 @@
 module Referrals
   class DashboardController < ApplicationController
     def index
-      @partner = current_user.partnership
+      @partner = current_user.partner
     end
 
     private
