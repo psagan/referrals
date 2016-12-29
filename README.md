@@ -67,6 +67,21 @@ class RegistrationsController < ActionController::Base
 end  
 ```
 
+Capturing referral action
+```ruby
+# in your controller where you want to capture referral action
+class PaymentController < ActionController::Base
+  include Referrals::OperationsConcern  
+  
+  def make_payment   
+    capture_referral_action(current_user, 10.30, 'Payment for subscription')
+    render plain: 'ok'
+  end
+  
+  
+end
+```
+
 ## Contributing
 Contribution directions go here.
 
