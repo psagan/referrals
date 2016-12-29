@@ -62,6 +62,7 @@ class RegistrationsController < ActionController::Base
     # eg: assign referrals to partner when user
     # just registered
     # Now resource under 'registered_user' will be assigned to partner
+    # based on value in cookie
     assign_referral_to_partner(registered_user)
   end
 end  
