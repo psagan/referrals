@@ -1,0 +1,30 @@
+<%= render('referrals/shared/menu') %>
+<h1><%= t('referrals.income_history.title') %></h1>
+<%= form_tag(filter_income_history_index_path, method: 'post') do %>
+  <%= date_field_tag(:date_from, @date_from || 1.month.ago.to_date) %>
+  <%= date_field_tag(:date_to, @date_to || Date.today) %>
+  <%= submit_tag(t('referrals.income_history.filter')) %>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th><%= t('referrals.income_history.date') %></th>
+      <th><%= t('referrals.income_history.info') %></th>
+      <th><%= t('referrals.income_history.amount') %></th>
+      <th><%= t('referrals.income_history.share') %></th>
+      <th><%= t('referrals.income_history.share_amount') %></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @income_histories.each_with_index do |ih, i| %>
+    <tr>
+      <td><%= ih.created_at.to_formatted_s(:db) %></td>
+      <td><%= ih.info %></td>
+      <td><%= number_to_currency(ih.amount) %></td>
+      <td><%= number_to_percentage(ih.share*100, precision: 2) %></td>
+      <td><%= number_to_currency(ih.share_amount) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= paginate @income_histories %>
