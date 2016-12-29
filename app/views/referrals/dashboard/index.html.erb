@@ -1,10 +1,2 @@
-<h1><%= t('referrals.dashboard.income_histories') %></h1>
-<table>
-  <% @income_histories.each do |ih| %>
-    <tr>
-      <td><%= ih.referral.email %></td>
-      <td><%= ih.share_amount %></td>
-      <td><%= ih.created_at %></td>
-    </tr>
-  <% end %>
-</table>
+<%= render('referrals/shared/menu') %>
+<h1><%= t('referrals.dashboard.title') %></h1>

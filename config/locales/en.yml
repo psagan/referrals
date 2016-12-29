@@ -1,4 +1,16 @@
 en:
   referrals:
+    menu:
+      dashboard: Dashboard
+      income_history: Income History
+      payment_history: Payment History
     dashboard:
-      income_histories: Income History
+      title: Dashboard
+    income_history:
+      title: Income History
+      date: Date
+      info: Info
+      amount: Amount
+      share: Share
+      share_amount: Share Amount
+      filter: Filter
