@@ -6,6 +6,9 @@ en:
       payment_history: Payment History
     dashboard:
       title: Dashboard
+      amount: Amount to withdraw
+      active_referrals: Number of active referrals
+      link: Link
     income_history:
       title: Income History
       date: Date

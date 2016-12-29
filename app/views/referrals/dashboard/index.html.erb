@@ -1,2 +1,16 @@
 <%= render('referrals/shared/menu') %>
 <h1><%= t('referrals.dashboard.title') %></h1>
+<p>
+  <div>
+    <strong><%= t('referrals.dashboard.amount') %>:</strong>
+    <%= number_to_currency(@partner.amount) %>
+  </div>
+  <div>
+    <strong><%= t('referrals.dashboard.active_referrals') %>:</strong>
+    <%= @partner.referrals.count %>
+  </div>
+  <div>
+    <strong><%= t('referrals.dashboard.link') %>:</strong>
+    <%= referral_link(@partner) %>
+  </div>
+</p>
