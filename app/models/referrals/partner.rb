@@ -6,5 +6,7 @@ module Referrals
     has_many :income_histories
 
     validates :user, uniqueness: true, presence: true
+
+    monetize :amount_cents, as: 'amount'
   end
 end
