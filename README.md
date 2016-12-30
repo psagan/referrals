@@ -75,7 +75,7 @@ class PaymentController < ActionController::Base
   include Referrals::OperationsConcern  
   
   def make_payment   
-    capture_referral_action(referral: current_user, amount: 10.30, info: 'Payment for subscription')
+    capture_referral_action(referral: current_user, amount: Money.new(1030), info: 'Payment for subscription')
     render plain: 'ok'
   end
   
