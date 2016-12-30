@@ -14,7 +14,10 @@ module Referrals
 
     def call
       return unless partner
-      create_income_history
+      partner.transaction do
+        create_income_history
+        update_partner_amount
+      end
     end
 
     private
@@ -31,6 +34,10 @@ module Referrals
           share_amount: partner.share * amount,
           info: info
       )
+    end
+
+    def update_partner_amount
+      partner.update(amount: partner.amount + amount)
     end
   end
 end
