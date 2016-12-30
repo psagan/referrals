@@ -3,12 +3,18 @@ require 'support/shared/monetize_attr'
 
 module Referrals
   RSpec.describe IncomeHistory, type: :model do
+    shared_examples :date_scope do
+      context "when date_to provided" do
+        it "returns proper data by date_to" do
+          expect(subject).to eq(expected_data)
+        end
+      end
 
-    shared_context :empty_scope do |method|
-      it "returns all data" do
-        results = subject
-
-        expect(results).to eq([income_history_1, income_history_2, income_history_3])
+      context "when date_to not provided" do
+        let(:date) { nil }
+        it "returns all data" do
+          expect(subject).to eq([income_history_1, income_history_2, income_history_3])
+        end
       end
     end
 
@@ -31,30 +37,14 @@ module Referrals
 
       describe ".date_from" do
         subject { Referrals::IncomeHistory.by_date_from(date) }
-        context "when date_from provided" do
-          it "returns proper data by date_from" do
-            expect(subject).to eq([income_history_2, income_history_3])
-          end
-        end
-
-        context "when date_from is nil" do
-          let(:date) { nil }
-          it_behaves_like :empty_scope
-        end
+        let(:expected_data) { [income_history_2, income_history_3] }
+        it_behaves_like :date_scope
       end
 
       describe ".date_to" do
         subject { Referrals::IncomeHistory.by_date_to(date) }
-        context "when date_to provided" do
-          it "returns proper data by date_to" do
-            expect(subject).to eq([income_history_1, income_history_2])
-          end
-        end
-
-        context "when date_to not provided" do
-          let(:date) { nil }
-          it_behaves_like :empty_scope
-        end
+        let(:expected_data) { [income_history_1, income_history_2] }
+        it_behaves_like :date_scope
       end
 
       describe ".by_partner" do
