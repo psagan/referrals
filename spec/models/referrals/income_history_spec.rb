@@ -16,12 +16,11 @@ module Referrals
       let!(:partner_user) { FactoryGirl.create(:user) }
       let!(:partner) { FactoryGirl.create(:partner, user: partner_user) }
       let!(:user) { FactoryGirl.create(:user, email: 'user@example.com') }
+      let!(:income_history_1) { FactoryGirl.create(:income_history, partner: partner, referral: user, created_at: 2.months.ago) }
+      let!(:income_history_2) { FactoryGirl.create(:income_history, partner: partner, referral: user, created_at: 1.month.ago) }
+      let!(:income_history_3) { FactoryGirl.create(:income_history, partner: partner, referral: user) }
 
       describe ".date_from" do
-        let!(:income_history_1) { FactoryGirl.create(:income_history, partner: partner, referral: user, created_at: 2.months.ago) }
-        let!(:income_history_2) { FactoryGirl.create(:income_history, partner: partner, referral: user, created_at: 1.month.ago) }
-        let!(:income_history_3) { FactoryGirl.create(:income_history, partner: partner, referral: user) }
-
         context "when date_from provided" do
           it "returns proper data by date_from" do
             results = Referrals::IncomeHistory.by_date_from(1.month.ago)
@@ -40,10 +39,6 @@ module Referrals
       end
 
       describe ".date_to" do
-        let!(:income_history_1) { FactoryGirl.create(:income_history, partner: partner, referral: user, created_at: 2.months.ago) }
-        let!(:income_history_2) { FactoryGirl.create(:income_history, partner: partner, referral: user, created_at: 1.month.ago) }
-        let!(:income_history_3) { FactoryGirl.create(:income_history, partner: partner, referral: user) }
-
         context "when date_to provided" do
           it "returns proper data by date_to" do
             results = Referrals::IncomeHistory.by_date_to(1.month.ago)
