@@ -14,6 +14,16 @@ module Referrals
 
     def call
       return unless partner
+      create_income_history
+    end
+
+    private
+
+    def partner
+      @partner ||= referral.referral_user.try(:partner)
+    end
+
+    def create_income_history
       partner.income_histories.create(
           referral: referral,
           amount: amount,
@@ -21,12 +31,6 @@ module Referrals
           share_amount: partner.share * amount,
           info: info
       )
-    end
-
-    private
-
-    def partner
-      referral.referral_user.try(:partner)
     end
   end
 end
