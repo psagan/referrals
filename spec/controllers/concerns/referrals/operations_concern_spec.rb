@@ -24,40 +24,33 @@ RSpec.describe Referrals::OperationsConcern, type: :controller do
   describe "#assign_user_to_partner" do
     before do
       routes.draw { get 'fake_action' => 'anonymous#fake_action' }
+      allow(Referrals::AssignReferralToPartnerService).to receive(:new).and_return(assign_referral_to_partner_service)
     end
+    let(:assign_referral_to_partner_service) { double(:assign_referral_to_partner_service, call: true) }
+
     context "when referrals_pid in cookie" do
       before do
-        request.cookies[:referrals_pid] = Referrals::Partner.first.id
+        request.cookies[:referrals_pid] = partner.id
       end
 
-      context "when user is not yet assigned to partner" do
-        it "assigns user to partner" do
-          expect { get :fake_action }.to change{ partner.referrals.count }.by(1)
-        end
-      end
+      it "calls service with proper arguments" do
+        get 'fake_action'
 
-      context "when user is already assigned to partner" do
-        let!(:referral_user) { FactoryGirl.create('referral_user', referral: user, partner: partner) }
-        it "does not assign it once again" do
-          expect { get :fake_action }.to change{ ::Referrals::ReferralUser.count }.by(0)
-        end
-      end
-
-      context "when user is assigned to other partner" do
-        let!(:partner_user_2) { FactoryGirl.create(:user) }
-        let!(:partner_2) { FactoryGirl.create(:partner, user: partner_user_2) }
-        let!(:referral_user) { FactoryGirl.create('referral_user', referral: user, partner: partner_2) }
-        it "does not assign user to new partner" do
-          expect { get :fake_action }.to change{ ::Referrals::ReferralUser.count }.by(0)
-        end
+        expected_arguments = {
+            referral: user,
+            partner_id: partner.id.to_s
+        }
+        expect(Referrals::AssignReferralToPartnerService).to have_received(:new).with(expected_arguments).once
+        expect(assign_referral_to_partner_service).to have_received(:call).once
       end
     end
 
     context "when no referrals_pid info in cookie" do
-      it "does not assign" do
+      it "does not call  service" do
         get :fake_action
 
-        expect(partner.referrals.count).to eq(0)
+        expect(Referrals::AssignReferralToPartnerService).not_to have_received(:new)
+        expect(assign_referral_to_partner_service).not_to have_received(:call)
       end
     end
   end
@@ -65,12 +58,11 @@ RSpec.describe Referrals::OperationsConcern, type: :controller do
   describe "#capture_referral_action" do
     let(:amount) { 1000 }
     let(:info) { 'Payment for subscription' }
+    let(:capture_referral_action_service) { double(:capture_referral_action_service, call: true) }
 
     before do
       routes.draw { get 'fake_action_2' => 'anonymous#fake_action_2' }
     end
-
-    let(:capture_referral_action_service) { double(:capture_referral_action_service, call: true) }
 
     it "calls service with proper arguments" do
       allow(Referrals::CaptureReferralActionService).to receive(:new).and_return(capture_referral_action_service)
