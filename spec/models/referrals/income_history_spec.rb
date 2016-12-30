@@ -24,7 +24,7 @@ module Referrals
 
         context "when date_from provided" do
           it "returns proper data" do
-            results = Referrals::IncomeHistory.date_from(1.month.ago).map(&:id)
+            results = Referrals::IncomeHistory.by_date_from(1.month.ago).map(&:id)
 
             expect(results).to eq([income_history_2.id, income_history_3.id])
           end
@@ -32,12 +32,17 @@ module Referrals
 
         context "when date_from not provided" do
           it "returns all data" do
-            results = Referrals::IncomeHistory.date_from(nil).map(&:id)
+            results = Referrals::IncomeHistory.by_date_from(nil).map(&:id)
 
             expect(results).to eq([income_history_1.id, income_history_2.id, income_history_3.id])
           end
         end
       end
+
+      describe ".date_to" do
+
+      end
+
     end
 
   end
