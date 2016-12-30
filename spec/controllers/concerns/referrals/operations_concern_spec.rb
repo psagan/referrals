@@ -12,7 +12,7 @@ RSpec.describe Referrals::OperationsConcern, type: :controller do
 
     def fake_action_2
       user = User.find_by_email('user@example.com')
-      capture_referral_action(user, 1000, 'Payment for subscription')
+      capture_referral_action(referral: user, amount: 1000, info: 'Payment for subscription')
       render plain: 'ok'
     end
   end
@@ -70,17 +70,19 @@ RSpec.describe Referrals::OperationsConcern, type: :controller do
       routes.draw { get 'fake_action_2' => 'anonymous#fake_action_2' }
     end
 
-    context "when referral is assigned to partner" do
-      let!(:referral_user) { FactoryGirl.create('referral_user', referral: user, partner: partner) }
-      it "creates income history" do
-        expect { get :fake_action_2 }.to change { partner.income_histories.count }.by(1)
-      end
-    end
+    let(:capture_referral_action_service) { double(:capture_referral_action_service, call: true) }
 
-    context "when referral is NOT assigned to partner" do
-      it "does not create income history" do
-        expect { get :fake_action_2 }.to change { partner.income_histories.count }.by(0)
-      end
+    it "calls service with proper arguments" do
+      allow(Referrals::CaptureReferralActionService).to receive(:new).and_return(capture_referral_action_service)
+      get 'fake_action_2'
+
+      expected_arguments = {
+          referral: user,
+          amount: amount,
+          info: info
+      }
+      expect(Referrals::CaptureReferralActionService).to have_received(:new).with(expected_arguments).once
+      expect(capture_referral_action_service).to have_received(:call).once
     end
   end
 

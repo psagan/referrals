@@ -15,18 +15,8 @@ module Referrals
       partner.referrals << referral if partner && !::Referrals::ReferralUser.find_by(referral: referral)
     end
 
-    def capture_referral_action(referral, amount, info)
-      # @todo - move logic to dedicated service
-      partner = referral.referral_user.try(:partner)
-
-      return unless partner
-      partner.income_histories.create(
-        referral: referral,
-        amount: amount,
-        share: partner.share,
-        share_amount: partner.share * amount,
-        info: info
-      )
+    def capture_referral_action(referral:, amount:, info:)
+      Referrals::CaptureReferralActionService.new(referral: referral, amount: amount, info: info).call
     end
   end
 end
