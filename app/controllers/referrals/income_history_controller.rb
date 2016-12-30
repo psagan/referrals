@@ -5,8 +5,8 @@ module Referrals
       @date_to = get_date(:date_to)
       @income_histories = Referrals::IncomeHistory
         .by_partner(current_user.partner)
-        .date_from(@date_from)
-        .date_to(@date_to)
+        .by_date_from(@date_from)
+        .by_date_to(@date_to)
         .page(params[:page])
 
     end
