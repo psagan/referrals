@@ -16,7 +16,11 @@ module Referrals
     end
 
     def capture_referral_action(referral:, amount:, info:)
-      Referrals::CaptureReferralActionService.new(referral: referral, amount: amount, info: info).call
+      Referrals::CaptureReferralActionService.new(
+          referral: referral,
+          amount: amount,
+          info: info
+      ).call
     end
   end
 end
