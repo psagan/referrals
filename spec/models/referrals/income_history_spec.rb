@@ -3,10 +3,11 @@ require 'support/shared/monetize_attr'
 
 module Referrals
   RSpec.describe IncomeHistory, type: :model do
-    shared_examples :date_scope do
+    shared_examples :date_scope do |method, expected_data|
+      subject { Referrals::IncomeHistory.send(method, date) }
       context "when date_to provided" do
         it "returns proper data by date_to" do
-          expect(subject).to eq(expected_data)
+          expect(subject).to eq(expected_data.map{|x| send(x)})
         end
       end
 
@@ -35,16 +36,12 @@ module Referrals
       let!(:income_history_3) { FactoryGirl.create(:income_history, partner: partner, referral: user) }
       let(:date) { 1.month.ago }
 
-      describe ".date_from" do
-        subject { Referrals::IncomeHistory.by_date_from(date) }
-        let(:expected_data) { [income_history_2, income_history_3] }
-        it_behaves_like :date_scope
+      describe ".by_date_from" do
+        it_behaves_like :date_scope, :by_date_from, [:income_history_2, :income_history_3]
       end
 
-      describe ".date_to" do
-        subject { Referrals::IncomeHistory.by_date_to(date) }
-        let(:expected_data) { [income_history_1, income_history_2] }
-        it_behaves_like :date_scope
+      describe ".by_date_to" do
+        it_behaves_like :date_scope, :by_date_to, [:income_history_1, :income_history_2]
       end
 
       describe ".by_partner" do
