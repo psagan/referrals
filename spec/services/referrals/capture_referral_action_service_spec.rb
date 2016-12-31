@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Referrals::CaptureReferralActionService do
+
+  shared_examples :changes_in_partner_amount do |by_value, amount_value|
+    it "changes partner amount" do
+      expect { service.call }.to change { partner.reload.amount_cents }.by(by_value)
+      expect(partner.reload.amount).to eq(Money.new(amount_value))
+    end
+  end
+
   let(:amount) { Money.new(1034) }
   let(:info) { 'Payment for subscription' }
   let!(:partner_user) { FactoryGirl.create(:user) }
@@ -16,10 +24,7 @@ RSpec.describe Referrals::CaptureReferralActionService do
         expect { service.call }.to change { partner.income_histories.count }.by(1)
       end
 
-      it "updates partner amount" do
-        expect { service.call }.to change { partner.reload.amount_cents }.by(1034)
-        expect(partner.reload.amount).to eq(Money.new(3782))
-      end
+      it_behaves_like :changes_in_partner_amount, 1034, 3782
     end
 
     context "when referral is NOT assigned to partner" do
@@ -27,10 +32,7 @@ RSpec.describe Referrals::CaptureReferralActionService do
         expect { service.call }.to change { partner.income_histories.count }.by(0)
       end
 
-      it "does not update partner amount" do
-        expect { service.call }.to change { partner.reload.amount_cents }.by(0)
-        expect(partner.reload.amount).to eq(Money.new(2748))
-      end
+      it_behaves_like :changes_in_partner_amount, 0, 2748
 
       it "returns falsey result" do
         expect(service.call).to be_falsey
