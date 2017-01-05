@@ -72,10 +72,17 @@ Capturing referral action
 ```ruby
 # in your controller where you want to capture referral action
 class PaymentController < ActionController::Base
+  # 1. First: include operations module
   include Referrals::OperationsConcern  
   
   def make_payment   
+    #2. Second: capture action made by user eg: payment for subscription
+    #   This way operation will be captured and proper amount will be added
+    #   To partner's account. 
     capture_referral_action(referral: current_user, amount: Money.new(1030), info: 'Payment for subscription')
+    
+    # ...
+    
     render plain: 'ok'
   end
   
