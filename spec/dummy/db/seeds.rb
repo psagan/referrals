@@ -9,15 +9,7 @@ q = 10
     User.create(email: "m#{i}_#{n}@example.com")
     User.last.tap do |u|
       partner.reload.partner.referrals << u
-      Referrals::IncomeHistory.create(
-          referral: u,
-          partner: partner.partner,
-          info: 'Payment for subscription',
-          amount_cents: 2077,
-          share: partner.partner.share,
-          share_amount_cents: partner.partner.share * 2077,
-          created_at: created_at
-      )
+      Referrals::CaptureReferralActionService.new(amount: Money.new(2077), referral: u, info: 'Payment for subscription').call
     end
   end
 end
