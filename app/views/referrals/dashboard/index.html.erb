@@ -4,6 +4,7 @@
   <div>
     <strong><%= t('referrals.dashboard.amount') %>:</strong>
     <%= number_to_currency(@partner.amount) %>
+    <%= link_to(t('referrals.dashboard.withdraw'), new_withdrawal_path) %>
   </div>
   <div>
     <strong><%= t('referrals.dashboard.active_referrals') %>:</strong>

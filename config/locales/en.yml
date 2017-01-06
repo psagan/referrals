@@ -4,12 +4,13 @@ en:
       dashboard: Dashboard
       income_history: Income History
       payment_history: Payment History
-      withdrawal_history: Withdrawal history
+      withdrawal_history: Withdrawals
     dashboard:
       title: Dashboard
       amount: Amount to withdraw
       active_referrals: Number of active referrals
       link: Link
+      withdraw: Withdraw
     income_history:
       title: Income History
       date: Date
@@ -18,5 +19,5 @@ en:
       share: Share
       share_amount: Share Amount
       filter: Filter
-    withdrawal_history:
-      title: Withdrawal History
+    withdrawal:
+      title: Withdrawals

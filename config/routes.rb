@@ -3,5 +3,5 @@ Referrals::Engine.routes.draw do
   resources :income_history, only: [:index] do
     post :filter, on: :collection
   end
-  resources :withdrawal_history, only: [:index]
+  resources :withdrawal, only: [:index, :new, :create]
 end

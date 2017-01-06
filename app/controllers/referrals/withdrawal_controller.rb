@@ -1,6 +1,10 @@
 module Referrals
-  class WithdrawalHistoryController < ApplicationController
+  class WithdrawalController < ApplicationController
     def index
+
+    end
+
+    def new
 
     end
 
