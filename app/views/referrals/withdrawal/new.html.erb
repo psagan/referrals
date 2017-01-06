@@ -4,7 +4,11 @@
   <strong><%= t('referrals.withdrawal.new.amount') %>:</strong>
   <%= number_to_currency(@partner.amount) %>
   <%= form_for(@withdrawal, url: {action: :create}) do |f| %>
-    <%= f.number_field :amount %>
+    <%= f.number_field :amount, step: 0.01 %>
+    <% unless @withdrawal.errors[:amount].empty? %>
+      <span><%= @withdrawal.errors[:amount].join(", ") %></span>
+      <br/>
+    <% end %>
     <%= f.submit t('referrals.withdrawal.new.create')  %>
   <% end %>
 </p>

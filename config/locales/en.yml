@@ -1,4 +1,12 @@
 en:
+  activerecord:
+    errors:
+      models:
+        referrals/withdrawal:
+          attributes:
+            amount:
+              greater_thant_available_funds: Amount to withdraw must be less or equal available funds %{count}
+              less_than_min_withdrawal_amount: Amount must be greater than %{count}
   referrals:
     menu:
       dashboard: Dashboard
@@ -27,4 +35,5 @@ en:
       new:
         title: Withdraw money
         create: Withdraw
-        amount: Amount to withdraw
+        amount: Available funds
+
