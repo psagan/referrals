@@ -34,11 +34,11 @@ module Referrals
               expect(subject.valid?).to eq(false)
             end
 
-            # shared ex
             it "adds error" do
               subject.valid?
 
-              expect(subject.errors.details[:amount]).to eq([{error: :greater_thant_available_funds, count: partner.amount}])
+              expected = [{error: :greater_thant_available_funds, count: partner.amount}]
+              expect(subject.errors.details[:amount]).to eq(expected)
             end
           end
 
@@ -49,7 +49,6 @@ module Referrals
               expect(subject.valid?).to eq(false)
             end
 
-            # shared ex
             it "adds error" do
               subject.valid?
 

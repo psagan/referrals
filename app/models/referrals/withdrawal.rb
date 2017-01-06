@@ -11,7 +11,7 @@ module Referrals
 
     monetize :amount_cents, as: 'amount'
 
-    validates_presence_of :amount, :partner
+    validates :amount, :partner, presence: true
     validate :amount_value
 
     private
