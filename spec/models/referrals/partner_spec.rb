@@ -7,24 +7,22 @@ module Referrals
       include_examples :monetize_attr, :amount
     end
 
-    let(:value) { Money.new(2041) }
-
     subject(:partner) { FactoryGirl.build(:partner, amount: 100.10) }
 
-    describe "#increase_amount" do
-      it "increases amount" do
-        partner.increase_amount(value)
+    shared_examples :changes_amount do |method, expected_cents|
+      it "changes amount" do
+        partner.send(method, Money.new(2041))
 
-        expect(partner.amount).to eq(Money.new(12051))
+        expect(partner.amount).to eq(Money.new(expected_cents))
       end
     end
 
-    describe "#decrease_amount" do
-      it "decreases amount" do
-        partner.decrease_amount(value)
+    describe "#increase_amount" do
+      include_examples :changes_amount, :increase_amount, 12051
+    end
 
-        expect(partner.amount).to eq(Money.new(7969))
-      end
+    describe "#decrease_amount" do
+      include_examples :changes_amount, :decrease_amount, 7969
     end
   end
 end
