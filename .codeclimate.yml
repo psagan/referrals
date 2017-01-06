@@ -37,4 +37,4 @@ ratings:
   - "**.py"
 exclude_paths:
 - config/
-- test/
+- spec/
