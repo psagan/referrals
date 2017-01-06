@@ -7,5 +7,7 @@ module Referrals
     has_many :withdrawal_histories
 
     enum status: { pending: 0, paid: 1, cancelled: 2 }
+
+    monetize :amount_cents, as: 'amount'
   end
 end
