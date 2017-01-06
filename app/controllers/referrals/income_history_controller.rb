@@ -3,7 +3,7 @@ module Referrals
     def index
       @date_from = get_date(:date_from)
       @date_to = get_date(:date_to)
-      @income_histories = Referrals::IncomeHistory
+      @income_histories = ::Referrals::IncomeHistory
         .by_partner(current_user.partner)
         .by_date_from(@date_from)
         .by_date_to(@date_to)
