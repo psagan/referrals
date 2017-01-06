@@ -26,3 +26,5 @@ en:
         title: Withdrawals
       new:
         title: Withdraw money
+        create: Withdraw
+        amount: Amount to withdraw

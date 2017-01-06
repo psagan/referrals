@@ -1,2 +1,10 @@
 <%= render('referrals/shared/menu') %>
 <h1><%= t('referrals.withdrawal.new.title') %></h1>
+<p>
+  <strong><%= t('referrals.withdrawal.new.amount') %>:</strong>
+  <%= number_to_currency(@partner.amount) %>
+  <%= form_for(@withdrawal, url: {action: :create}) do |f| %>
+    <%= f.number_field :amount %>
+    <%= f.submit t('referrals.withdrawal.new.create')  %>
+  <% end %>
+</p>

@@ -5,7 +5,8 @@ module Referrals
     end
 
     def new
-
+      @withdrawal = ::Referrals::Withdrawal.new
+      @partner = current_user.partner
     end
 
     private
