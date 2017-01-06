@@ -12,11 +12,10 @@ module Referrals
     end
 
     def create
-      #@todo - move to dedicated service
-      @withdrawal = ::Referrals::Withdrawal.new(withdrawal_params)
-      if @withdrawal.save
+      if create_service.call
         redirect_to action: :index
       else
+        @withdrawal = create_service.withdrawal
         render action: :new
       end
     end
@@ -28,7 +27,11 @@ module Referrals
     end
 
     def withdrawal_params
-      params.require(:withdrawal).permit(:amount).merge(partner: @partner)
+      params.require(:withdrawal).permit(:amount)
+    end
+
+    def create_service
+      @create_service ||= ::Referrals::CreateWithdrawalService.new(amount: withdrawal_params[:amount], partner: @partner)
     end
 
     def current_user
