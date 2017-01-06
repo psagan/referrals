@@ -3,21 +3,6 @@ require 'support/shared/monetize_attr'
 
 module Referrals
   RSpec.describe IncomeHistory, type: :model do
-    shared_examples :date_scope do |method, expected_data|
-      subject { Referrals::IncomeHistory.send(method, date) }
-      context "when date_to provided" do
-        it "returns proper data by date_to" do
-          expect(subject).to eq(expected_data.map{|x| send(x)})
-        end
-      end
-
-      context "when date_to not provided" do
-        let(:date) { nil }
-        it "returns all data" do
-          expect(subject).to eq([income_history_1, income_history_2, income_history_3])
-        end
-      end
-    end
 
     describe "#amount" do
       include_examples :monetize_attr, :amount
@@ -37,11 +22,39 @@ module Referrals
       let(:date) { 1.month.ago }
 
       describe ".by_date_from" do
-        it_behaves_like :date_scope, :by_date_from, [:income_history_2, :income_history_3]
+        context "when date_from provided" do
+          it "returns proper data by date_from" do
+            results = Referrals::IncomeHistory.by_date_from(1.month.ago)
+
+            expect(results).to eq([income_history_2, income_history_3])
+          end
+        end
+
+        context "when date_from not provided" do
+          it "returns all data" do
+            results = Referrals::IncomeHistory.by_date_from(nil)
+
+            expect(results).to eq([income_history_1, income_history_2, income_history_3])
+          end
+        end
       end
 
       describe ".by_date_to" do
-        it_behaves_like :date_scope, :by_date_to, [:income_history_1, :income_history_2]
+        context "when date_to provided" do
+          it "returns proper data by date_to" do
+            results = Referrals::IncomeHistory.by_date_to(1.month.ago)
+
+            expect(results).to eq([income_history_1, income_history_2])
+          end
+        end
+
+        context "when date_to not provided" do
+          it "returns all data" do
+            results = Referrals::IncomeHistory.by_date_from(nil)
+
+            expect(results).to eq([income_history_1, income_history_2, income_history_3])
+          end
+        end
       end
 
       describe ".by_partner" do
