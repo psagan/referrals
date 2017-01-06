@@ -7,11 +7,13 @@ module Referrals
       include_examples :monetize_attr, :amount
     end
 
+    let(:value) { Money.new(2041) }
+
     subject(:partner) { FactoryGirl.build(:partner, amount: 100.10) }
 
     describe "#increase_amount" do
       it "increases amount" do
-        partner.increase_amount(Money.new(2041))
+        partner.increase_amount(value)
 
         expect(partner.amount).to eq(Money.new(12051))
       end
@@ -19,7 +21,7 @@ module Referrals
 
     describe "#decrease_amount" do
       it "decreases amount" do
-        partner.decrease_amount(Money.new(2041))
+        partner.decrease_amount(value)
 
         expect(partner.amount).to eq(Money.new(7969))
       end
