@@ -9,5 +9,14 @@ module Referrals
     validates :user, uniqueness: true, presence: true
 
     monetize :amount_cents, as: 'amount'
+
+    def increase_amount(value)
+      self.amount = amount + value
+    end
+
+    def decrease_amount(value)
+      self.amount = amount - value
+    end
+
   end
 end
