@@ -8,7 +8,7 @@ module Referrals
 
     def initialize(referral:, amount:, info:)
       @referral = referral
-      @amount = amount
+      @amount = amount # instance of Money
       @info = info
     end
 
@@ -37,7 +37,8 @@ module Referrals
     end
 
     def update_partner_amount
-      partner.update(amount: partner.amount + amount)
+      partner.increase_amount(amount)
+      partner.save
     end
   end
 end
