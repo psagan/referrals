@@ -20,4 +20,7 @@ en:
       share_amount: Share Amount
       filter: Filter
     withdrawal:
-      title: Withdrawals
+      index:
+        title: Withdrawals
+      new:
+        title: Withdraw money
