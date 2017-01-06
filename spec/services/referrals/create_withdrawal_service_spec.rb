@@ -37,7 +37,7 @@ RSpec.describe Referrals::CreateWithdrawalService do
         expect(service.call).to eq(false)
       end
 
-      it "does not creat withdrawal" do
+      it "does not create withdrawal" do
         expect { service.call }.to change { ::Referrals::Withdrawal.where(partner: partner).count }.by(0)
       end
 
