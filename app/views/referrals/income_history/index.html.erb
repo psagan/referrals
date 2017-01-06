@@ -1,18 +1,18 @@
 <%= render('referrals/shared/menu') %>
-<h1><%= t('referrals.income_history.title') %></h1>
+<h1><%= t('referrals.income_history.index.title') %></h1>
 <%= form_tag(filter_income_history_index_path, method: 'post') do %>
   <%= date_field_tag(:date_from, @date_from || 1.month.ago.to_date) %>
   <%= date_field_tag(:date_to, @date_to || Date.today) %>
-  <%= submit_tag(t('referrals.income_history.filter')) %>
+  <%= submit_tag(t('referrals.income_history.index.filter')) %>
 <% end %>
 <table>
   <thead>
     <tr>
-      <th><%= t('referrals.income_history.date') %></th>
-      <th><%= t('referrals.income_history.info') %></th>
-      <th><%= t('referrals.income_history.amount') %></th>
-      <th><%= t('referrals.income_history.share') %></th>
-      <th><%= t('referrals.income_history.share_amount') %></th>
+      <th><%= t('referrals.income_history.index.date') %></th>
+      <th><%= t('referrals.income_history.index.info') %></th>
+      <th><%= t('referrals.income_history.index.amount') %></th>
+      <th><%= t('referrals.income_history.index.share') %></th>
+      <th><%= t('referrals.income_history.index.share_amount') %></th>
     </tr>
   </thead>
   <tbody>
