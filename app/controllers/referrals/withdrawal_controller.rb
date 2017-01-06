@@ -1,9 +1,9 @@
 module Referrals
   class WithdrawalController < ApplicationController
-    before_action :set_partner, only: [:new, :create]
+    before_action :set_partner, only: [:index, :new, :create]
 
     def index
-
+      @withdrawals = ::Referrals::Withdrawal.by_partner(@partner)
     end
 
     def new

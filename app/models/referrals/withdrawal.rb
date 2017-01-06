@@ -7,6 +7,8 @@ module Referrals
     # (more relational db's can use it)
     has_many :withdrawal_histories
 
+    scope :by_partner, -> (partner) { where(partner: partner) }
+
     enum status: { pending: 0, paid: 1, cancelled: 2 }
 
     monetize :amount_cents, as: 'amount'

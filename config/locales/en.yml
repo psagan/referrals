@@ -1,5 +1,11 @@
 en:
   activerecord:
+    attributes:
+      referrals/withdrawal:
+        status:
+          pending: Pending
+          paid: Paid
+          cancelled: Cancelled
     errors:
       models:
         referrals/withdrawal:
@@ -32,6 +38,9 @@ en:
     withdrawal:
       index:
         title: Withdrawals
+        date: Date
+        amount: Amount
+        status: Status
       new:
         title: Withdraw money
         create: Withdraw

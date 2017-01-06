@@ -1,2 +1,22 @@
 <%= render('referrals/shared/menu') %>
 <h1><%= t('referrals.withdrawal.index.title') %></h1>
+<p>
+  <table>
+    <thead>
+      <tr>
+        <th><%= t('referrals.withdrawal.index.date') %></th>
+        <th><%= t('referrals.withdrawal.index.amount') %></th>
+        <th><%= t('referrals.withdrawal.index.status') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @withdrawals.each do |withdrawal| %>
+        <tr>
+          <td><%= withdrawal.created_at.to_formatted_s(:db) %></td>
+          <td><%= number_to_currency(withdrawal.amount) %></td>
+          <td><%= t("activerecord.attributes.referrals/withdrawal.status.#{withdrawal.status}") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</p>
