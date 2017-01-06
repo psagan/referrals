@@ -3,7 +3,13 @@ module Referrals
     before_action :set_partner, only: [:index, :new, :create]
 
     def index
-      @withdrawals = ::Referrals::Withdrawal.by_partner(@partner)
+      @date_from = get_date(:date_from)
+      @date_to = get_date(:date_to)
+      @withdrawals = ::Referrals::Withdrawal
+        .by_partner(@partner)
+        .by_date_from(@date_from)
+        .by_date_to(@date_to)
+        .page(params[:page])
     end
 
     def new
@@ -18,6 +24,10 @@ module Referrals
         @withdrawal = create_service.withdrawal
         render action: :new
       end
+    end
+
+    def filter
+      redirect_to withdrawal_index_path(date_from: get_date(:date_from), date_to: get_date(:date_to))
     end
 
     private
@@ -36,6 +46,13 @@ module Referrals
 
     def current_user
       User.first
+    end
+
+    # @todo - common part - move to concern
+    def get_date(key)
+      Date.parse(params[key])
+    rescue
+      nil
     end
   end
 end
