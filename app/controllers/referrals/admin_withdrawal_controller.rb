@@ -15,7 +15,7 @@ module Referrals
     def update
       # @todo - move to dedicated service
       w = ::Referrals::Withdrawal.find(params[:id])
-      case params[:new_status]
+      case params[:withdrawal][:status]
         when 'pending' then w.pending!
         when 'cancelled' then w.cancelled!
         when 'paid' then w.paid!
