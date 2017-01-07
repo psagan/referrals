@@ -22,7 +22,7 @@
         <td><%= number_to_currency(withdrawal.amount) %></td>
         <td><%= t("activerecord.attributes.referrals/withdrawal.status.#{withdrawal.status}") %></td>
         <td>
-          <%= form_tag(change_status_admin_withdrawal_path(withdrawal, date_from: @date_from, date_to: @date_to, status: @status), method: :post) do %>
+          <%= form_tag(admin_withdrawal_path(withdrawal, date_from: @date_from, date_to: @date_to, status: @status), method: :patch) do %>
               <%= select_tag(:new_status, options_for_select(::Referrals::Withdrawal.statuses.keys.map {|k| [t("activerecord.attributes.referrals/withdrawal.status.#{k}"), k] }, @status)) %>
               <%= submit_tag(t('referrals.shared.save')) %>
           <% end %>

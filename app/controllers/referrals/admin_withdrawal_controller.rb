@@ -12,7 +12,7 @@ module Referrals
         .page(params[:page])
     end
 
-    def change_status
+    def update
       # @todo - move to dedicated service
       w = ::Referrals::Withdrawal.find(params[:id])
       case params[:new_status]
