@@ -68,6 +68,51 @@ module Referrals
 
     describe "filterable scopes" do
       include_examples :filterable, :withdrawal
+
+      describe ".by_status" do
+        subject { described_class }
+        let!(:withdrawal_pending) { FactoryGirl.create_list(:withdrawal, 2, status: :pending)}
+        let!(:withdrawal_paid) { FactoryGirl.create_list(:withdrawal, 2, status: :paid)}
+        let!(:withdrawal_cancelled) { FactoryGirl.create_list(:withdrawal, 2, status: :cancelled)}
+
+        context "when proper status provided" do
+          it "returns pending" do
+            result = subject.by_status('pending')
+
+            expect(result).to eq(withdrawal_pending)
+          end
+
+          it "returns paid" do
+            result = subject.by_status('paid')
+
+            expect(result).to eq(withdrawal_paid)
+          end
+
+          it "returns cancelled" do
+            result = subject.by_status('cancelled')
+
+            expect(result).to eq(withdrawal_cancelled)
+          end
+        end
+
+        context "when improper status provided" do
+          context "when blank status" do
+            it "returns all" do
+              result = subject.by_status(nil)
+
+              expect(result).to eq(withdrawal_pending + withdrawal_paid + withdrawal_cancelled)
+            end
+          end
+
+          context "when non existing status" do
+            it "returns nothing" do
+              result = subject.by_status('non_existing_status')
+
+              expect(result).to eq([])
+            end
+          end
+        end
+      end
     end
 
   end
