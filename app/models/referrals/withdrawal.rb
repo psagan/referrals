@@ -1,15 +1,13 @@
 module Referrals
   class Withdrawal < ApplicationRecord
+    include Filterable
+
     belongs_to :partner
 
     # it would be great to keep this in jsonb field
     # but decided to use has_many relationship for versatility
     # (more relational db's can use it)
     has_many :withdrawal_histories
-
-    scope :by_date_from, -> (date_from) { where('created_at >= ?', date_from.beginning_of_day) if date_from }
-    scope :by_date_to, -> (date_to) { where('created_at <= ?', date_to.end_of_day) if date_to }
-    scope :by_partner, -> (partner) { where(partner: partner) }
 
     enum status: { pending: 0, paid: 1, cancelled: 2 }
 

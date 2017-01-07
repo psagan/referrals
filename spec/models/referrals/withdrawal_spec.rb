@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'support/shared/monetize_attr'
+require 'support/shared/filterable'
 
 module Referrals
   RSpec.describe Withdrawal, type: :model do
@@ -58,6 +60,14 @@ module Referrals
           end
         end
       end
+    end
+
+    describe "#amount" do
+      include_examples :monetize_attr, :amount
+    end
+
+    describe "filterable scopes" do
+      include_examples :filterable, :withdrawal
     end
 
   end
