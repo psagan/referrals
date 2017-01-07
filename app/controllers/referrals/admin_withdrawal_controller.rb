@@ -1,5 +1,6 @@
 module Referrals
   class AdminWithdrawalController < ApplicationController
+    before_action :set_withdrawal, only: [:update]
 
     def index
       @date_from = get_date(:date_from)
@@ -13,13 +14,10 @@ module Referrals
     end
 
     def update
-      # @todo - move to dedicated service
-      w = ::Referrals::Withdrawal.find(params[:id])
-      case params[:withdrawal][:status]
-        when 'pending' then w.pending!
-        when 'cancelled' then w.cancelled!
-        when 'paid' then w.paid!
-      end
+      ::Referrals::UpdateWithdrawalService.new(
+          withdrawal: @withdrawal,
+          status: withdrawal_params[:status]
+      ).call
       filter
     end
 
@@ -28,6 +26,14 @@ module Referrals
     end
 
     private
+
+    def withdrawal_params
+      params.require(:withdrawal).permit(:status)
+    end
+
+    def set_withdrawal
+      @withdrawal = ::Referrals::Withdrawal.find(params[:id])
+    end
 
     # @todo - move to concern
     def get_date(key)
