@@ -4,15 +4,16 @@ module Referrals
     def index
       @date_from = get_date(:date_from)
       @date_to = get_date(:date_to)
+      @status = params[:status]
       @withdrawals = ::Referrals::Withdrawal
         .by_date_from(@date_from)
         .by_date_to(@date_to)
-        .by_status(params[:status])
+        .by_status(@status)
         .page(params[:page])
     end
 
     def filter
-      redirect_to admin_withdrawal_index_path(date_from: get_date(:date_from), date_to: get_date(:date_to))
+      redirect_to admin_withdrawal_index_path(date_from: get_date(:date_from), date_to: get_date(:date_to), status: params[:status])
     end
 
     private

@@ -2,6 +2,7 @@
 <%= form_tag(filter_admin_withdrawal_index_path, method: 'post') do %>
     <%= date_field_tag(:date_from, @date_from || 1.month.ago.to_date) %>
     <%= date_field_tag(:date_to, @date_to || Date.today) %>
+    <%= select_tag(:status, options_for_select(::Referrals::Withdrawal.statuses.keys.map {|k| [t("activerecord.attributes.referrals/withdrawal.status.#{k}"), k] }, @status)) %>
     <%= submit_tag(t('referrals.shared.filter')) %>
 <% end %>
 <p>
