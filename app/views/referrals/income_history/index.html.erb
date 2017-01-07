@@ -3,7 +3,7 @@
 <%= form_tag(filter_income_history_index_path, method: 'post') do %>
   <%= date_field_tag(:date_from, @date_from || 1.month.ago.to_date) %>
   <%= date_field_tag(:date_to, @date_to || Date.today) %>
-  <%= submit_tag(t('referrals.income_history.index.filter')) %>
+  <%= submit_tag(t('referrals.shared.filter')) %>
 <% end %>
 <table>
   <thead>
