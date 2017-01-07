@@ -14,6 +14,8 @@ en:
               greater_thant_available_funds: Amount to withdraw must be less or equal available funds %{count}
               less_than_min_withdrawal_amount: Amount must be greater or equal %{count}
   referrals:
+    shared:
+      filter: Filter
     menu:
       dashboard: Dashboard
       income_history: Income History
@@ -34,7 +36,6 @@ en:
         amount: Amount
         share: Share
         share_amount: Share Amount
-        filter: Filter
     withdrawal:
       index:
         title: Withdrawals
@@ -45,4 +46,10 @@ en:
         title: Withdraw money
         create: Withdraw
         amount: Available funds
+    admin_withdrawal:
+      index:
+        title: Admin Withdrawals
+        date: Date
+        amount: Amount
+        status: Status
 
