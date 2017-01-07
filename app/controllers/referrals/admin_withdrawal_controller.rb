@@ -12,6 +12,17 @@ module Referrals
         .page(params[:page])
     end
 
+    def change_status
+      # @todo - move to dedicated service
+      w = ::Referrals::Withdrawal.find(params[:id])
+      case params[:new_status]
+        when 'pending' then w.pending!
+        when 'cancelled' then w.cancelled!
+        when 'paid' then w.paid!
+      end
+      filter
+    end
+
     def filter
       redirect_to admin_withdrawal_index_path(date_from: get_date(:date_from), date_to: get_date(:date_to), status: params[:status])
     end

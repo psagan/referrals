@@ -16,6 +16,7 @@ en:
   referrals:
     shared:
       filter: Filter
+      save: Save
     menu:
       dashboard: Dashboard
       income_history: Income History
@@ -52,4 +53,5 @@ en:
         date: Date
         amount: Amount
         status: Status
+        action: Change Status
 

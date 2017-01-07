@@ -1,8 +1,8 @@
 <h1><%= t('referrals.admin_withdrawal.index.title') %></h1>
-<%= form_tag(filter_admin_withdrawal_index_path, method: 'post') do %>
+<%= form_tag(filter_admin_withdrawal_index_path, method: :post) do %>
     <%= date_field_tag(:date_from, @date_from || 1.month.ago.to_date) %>
     <%= date_field_tag(:date_to, @date_to || Date.today) %>
-    <%= select_tag(:status, options_for_select(::Referrals::Withdrawal.statuses.keys.map {|k| [t("activerecord.attributes.referrals/withdrawal.status.#{k}"), k] }, @status)) %>
+    <%= select_tag(:status, options_for_select(::Referrals::Withdrawal.statuses.keys.map {|k| [t("activerecord.attributes.referrals/withdrawal.status.#{k}"), k] }, @status), include_blank: true) %>
     <%= submit_tag(t('referrals.shared.filter')) %>
 <% end %>
 <p>
@@ -12,6 +12,7 @@
     <th><%= t('referrals.admin_withdrawal.index.date') %></th>
     <th><%= t('referrals.admin_withdrawal.index.amount') %></th>
     <th><%= t('referrals.admin_withdrawal.index.status') %></th>
+    <th><%= t('referrals.admin_withdrawal.index.action') %></th>
   </tr>
   </thead>
   <tbody>
@@ -20,6 +21,12 @@
         <td><%= withdrawal.created_at.to_formatted_s(:db) %></td>
         <td><%= number_to_currency(withdrawal.amount) %></td>
         <td><%= t("activerecord.attributes.referrals/withdrawal.status.#{withdrawal.status}") %></td>
+        <td>
+          <%= form_tag(change_status_admin_withdrawal_path(withdrawal, date_from: @date_from, date_to: @date_to, status: @status), method: :post) do %>
+              <%= select_tag(:new_status, options_for_select(::Referrals::Withdrawal.statuses.keys.map {|k| [t("activerecord.attributes.referrals/withdrawal.status.#{k}"), k] }, @status)) %>
+              <%= submit_tag(t('referrals.shared.save')) %>
+          <% end %>
+        </td>
       </tr>
   <% end %>
   </tbody>

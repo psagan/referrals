@@ -8,5 +8,6 @@ Referrals::Engine.routes.draw do
   end
   resources :admin_withdrawal, only: [:index] do
     post :filter, on: :collection
+    post :change_status, on: :member
   end
 end
