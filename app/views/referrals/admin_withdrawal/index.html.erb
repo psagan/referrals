@@ -1,0 +1,27 @@
+<h1><%= t('referrals.admin_withdrawal.index.title') %></h1>
+<%= form_tag(filter_admin_withdrawal_index_path, method: 'post') do %>
+    <%= date_field_tag(:date_from, @date_from || 1.month.ago.to_date) %>
+    <%= date_field_tag(:date_to, @date_to || Date.today) %>
+    <%= submit_tag(t('referrals.shared.filter')) %>
+<% end %>
+<p>
+<table>
+  <thead>
+  <tr>
+    <th><%= t('referrals.admin_withdrawal.index.date') %></th>
+    <th><%= t('referrals.admin_withdrawal.index.amount') %></th>
+    <th><%= t('referrals.admin_withdrawal.index.status') %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @withdrawals.each do |withdrawal| %>
+      <tr>
+        <td><%= withdrawal.created_at.to_formatted_s(:db) %></td>
+        <td><%= number_to_currency(withdrawal.amount) %></td>
+        <td><%= t("activerecord.attributes.referrals/withdrawal.status.#{withdrawal.status}") %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= paginate @withdrawals %>
+</p>
