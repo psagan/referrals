@@ -13,7 +13,7 @@ module Referrals
     def call
       withdrawal.transaction do
         update_withdrawal
-        # @todo - handle partner accout
+        # @todo - handle partner account
       end
     end
 
