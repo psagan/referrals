@@ -12,8 +12,9 @@ module Referrals
 
     def call
       withdrawal.transaction do
+        # @todo - handle partner amount
         update_withdrawal
-        # @todo - handle partner account
+        # @todo - add withdrawal history
       end
     end
 
