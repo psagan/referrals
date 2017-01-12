@@ -28,8 +28,12 @@ module Referrals
     end
 
     def handle_partner_amount
-      partner.decrease_amount(withdrawal.amount) if withdrawal.cancelled?
+      # if new state is 'cancelled' then we need to increase partne amount
+      # as we give money back to partner
       partner.increase_amount(withdrawal.amount) if status == 'cancelled'
+      # if previous state was cancelled then we need to decrease partner amount
+      # as new state requires that
+      partner.decrease_amount(withdrawal.amount) if withdrawal.cancelled?
       partner.save if partner.changed?
     end
 
