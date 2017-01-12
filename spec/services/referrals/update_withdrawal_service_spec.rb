@@ -6,6 +6,7 @@ RSpec.describe Referrals::UpdateWithdrawalService do
   end
 
   describe "#call" do
+    let(:partner) { FactoryGirl.create(:partner, amount: 708.47) }
     let(:withdrawal) { FactoryGirl.create(:withdrawal, status: :pending) }
     subject(:service) { described_class.new(withdrawal: withdrawal, status: status) }
     context "when proper status provided" do
@@ -16,7 +17,20 @@ RSpec.describe Referrals::UpdateWithdrawalService do
 
           expect(withdrawal.reload.paid?).to eq(true)
         end
+
+        context "when previous status pending" do
+          it "does not change partner amount" do
+
+          end
+        end
+
+        context "when previous status cancelled" do
+          it "decreases partner amount" do
+
+          end
+        end
       end
+
       context "when status cancelled" do
         let(:status) { 'cancelled' }
         it "set cancelled status" do
@@ -24,7 +38,12 @@ RSpec.describe Referrals::UpdateWithdrawalService do
 
           expect(withdrawal.reload.cancelled?).to eq(true)
         end
+
+        it "increases partner amount" do
+
+        end
       end
+
       context "when status pending" do
         let(:status) { 'pending' }
         before do
@@ -34,6 +53,18 @@ RSpec.describe Referrals::UpdateWithdrawalService do
           service.call
 
           expect(withdrawal.reload.pending?).to eq(true)
+        end
+      end
+
+      context "when previous status paid" do
+        it "does not change partner amount" do
+
+        end
+      end
+
+      context "when previous status cancelled" do
+        it "decreases partner amount" do
+
         end
       end
     end
@@ -46,6 +77,10 @@ RSpec.describe Referrals::UpdateWithdrawalService do
         service.call
 
         expect(withdrawal.pending?).to eq(true)
+      end
+
+      it "does not change partner amount" do
+
       end
     end
   end
