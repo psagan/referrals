@@ -15,11 +15,5 @@ module Referrals
       redirect_to income_history_index_path(date_from: @date_from, date_to: @date_to, page: @page)
     end
 
-    private
-
-    def current_user
-      User.first
-    end
-
   end
 end

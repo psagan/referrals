@@ -43,9 +43,5 @@ module Referrals
       @create_service ||= ::Referrals::CreateWithdrawalService.new(amount: withdrawal_params[:amount], partner: @partner)
     end
 
-    def current_user
-      User.first
-    end
-
   end
 end
