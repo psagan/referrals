@@ -16,8 +16,8 @@ module Referrals
       return unless valid?
       withdrawal.transaction do
         handle_partner_amount
+        add_history
         update_withdrawal
-        # @todo - add withdrawal history
       end
     end
 
@@ -35,6 +35,13 @@ module Referrals
       # as new state requires that
       partner.decrease_amount(withdrawal.amount) if withdrawal.cancelled?
       partner.save if partner.changed?
+    end
+
+    def add_history
+      withdrawal.withdrawal_histories.create(
+        status_from: withdrawal.status_number,
+        status_to: withdrawal.status_number(status)
+      )
     end
 
     def update_withdrawal

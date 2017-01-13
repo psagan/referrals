@@ -18,6 +18,10 @@ module Referrals
 
     scope :by_status, -> (status) { where(status: status) unless status.blank? }
 
+    def status_number(val = status)
+      self.class.statuses[val]
+    end
+
     private
 
     def amount_value

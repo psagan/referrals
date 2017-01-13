@@ -62,6 +62,34 @@ module Referrals
       end
     end
 
+    describe "#status_number" do
+      context "when parameter provided" do
+        context "when valid status provided" do
+          it "returns proper status number" do
+            described_class.statuses.each do |k,v|
+              expect(described_class.new.status_number(k)).to eq(v)
+            end
+          end
+        end
+
+        context "when invalid status provided" do
+          it "returns nil" do
+            expect(described_class.new.status_number('unknown')).to eq(nil)
+          end
+        end
+      end
+
+      context "when no parameter provided" do
+        it "returns current status number" do
+          described_class.statuses.each do |k,v|
+            subject = described_class.new(status: k)
+
+            expect(subject.status_number).to eq(v)
+          end
+        end
+      end
+    end
+
     describe "#amount" do
       include_examples :monetize_attr, :amount
     end
