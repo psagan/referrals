@@ -64,9 +64,7 @@ RSpec.describe Referrals::UpdateWithdrawalService do
 
       context "when new status pending" do
         let(:status) { 'pending' }
-        before do
-          withdrawal.paid!
-        end
+        let(:previous_status) { 'paid' }
         it "set pending status" do
           service.call
 
@@ -74,18 +72,21 @@ RSpec.describe Referrals::UpdateWithdrawalService do
         end
 
         context "when previous status paid" do
-          let(:status) { 'paid' }
           it "does not change partner amount" do
+            service.call
 
+            expect { service.call }.to change { partner.amount }.by(0)
+            expect(partner.reload.amount).to eq(Money.new(70847))
           end
         end
 
         context "when previous status cancelled" do
-          let(:status) { 'cancelled' }
+          let(:previous_status) { 'cancelled' }
           it "decreases partner amount" do
+            p withdrawal.cancelled?
             service.call
 
-            expect(partner.reload.amount).to eq(Money.new(83585))
+            expect(partner.reload.amount).to eq(Money.new(58109))
           end
         end
       end
