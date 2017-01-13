@@ -1,4 +1,4 @@
-class CreateReferralsWithdrawalHistories < ActiveRecord::Migration[5.0]
+class CreateReferralsWithdrawalHistories < ActiveRecord::Migration
   def change
     create_table :referrals_withdrawal_histories do |t|
       t.integer :withdrawal_id, null: false, index: true
