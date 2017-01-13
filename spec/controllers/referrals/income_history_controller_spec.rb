@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Referrals::IncomeHistoryController, type: :controller do
+RSpec.describe ::Referrals::IncomeHistoryController, type: :controller do
 
   # http://bit.ly/2jatysA
   routes { Referrals::Engine.routes }
