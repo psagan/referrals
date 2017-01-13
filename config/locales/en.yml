@@ -17,6 +17,8 @@ en:
     shared:
       filter: Filter
       save: Save
+      date_from: Date from
+      date_to: Date to
     menu:
       dashboard: Dashboard
       income_history: Income History
