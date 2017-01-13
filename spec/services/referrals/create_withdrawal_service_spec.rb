@@ -22,6 +22,9 @@ RSpec.describe Referrals::CreateWithdrawalService do
 
       it "creates withdrawal history" do
         expect { service.call }.to change { ::Referrals::WithdrawalHistory.where(withdrawal: service.withdrawal).count }.by(1)
+        withdrawal_history = service.withdrawal.withdrawal_histories.first
+        expect(withdrawal_history.status_from).to eq(nil)
+        expect(withdrawal_history.status_to).to eq(service.withdrawal.status_number)
       end
 
       it "decreases partner amount" do
