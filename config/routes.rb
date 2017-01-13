@@ -6,7 +6,7 @@ Referrals::Engine.routes.draw do
   resources :withdrawal, only: [:index, :new, :create] do
     post :filter, on: :collection
   end
-  resources :admin_withdrawal, only: [:index, :update] do
+  resources :admin_withdrawal, only: [:index, :show, :update] do
     post :filter, on: :collection
   end
 end

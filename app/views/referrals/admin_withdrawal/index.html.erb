@@ -12,6 +12,7 @@
     <th><%= t('referrals.admin_withdrawal.index.date') %></th>
     <th><%= t('referrals.admin_withdrawal.index.amount') %></th>
     <th><%= t('referrals.admin_withdrawal.index.status') %></th>
+    <th><%= t('referrals.admin_withdrawal.index.history') %></th>
     <th><%= t('referrals.admin_withdrawal.index.action') %></th>
   </tr>
   </thead>
@@ -21,6 +22,7 @@
         <td><%= withdrawal.created_at.to_formatted_s(:db) %></td>
         <td><%= number_to_currency(withdrawal.amount) %></td>
         <td><%= t("activerecord.attributes.referrals/withdrawal.status.#{withdrawal.status}") %></td>
+        <td><%= link_to t('referrals.admin_withdrawal.index.show'), admin_withdrawal_path(withdrawal) %></td>
         <td>
           <%= form_for(withdrawal, url: admin_withdrawal_path(withdrawal, date_from: @date_from, date_to: @date_to, status: @status)) do |f| %>
               <%= f.select(:status, options_for_select(::Referrals::Withdrawal.statuses.keys.map {|k| [t("activerecord.attributes.referrals/withdrawal.status.#{k}"), k] }, @status)) %>

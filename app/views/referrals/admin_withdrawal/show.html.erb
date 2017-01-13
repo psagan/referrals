@@ -1,0 +1,20 @@
+<h1><%= t('referrals.admin_withdrawal.show.title') %></h1>
+<%= link_to t('referrals.admin_withdrawal.show.back'), admin_withdrawal_index_path %>
+<table>
+  <thead>
+    <tr>
+      <th><%= t('referrals.admin_withdrawal.show.date') %></th>
+      <th><%= t('referrals.admin_withdrawal.show.status_from') %></th>
+      <th><%= t('referrals.admin_withdrawal.show.status_to') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @withdrawal.withdrawal_histories.each do |withdrawal_history| %>
+      <tr>
+        <td><%= withdrawal_history.created_at.to_formatted_s(:db) %></td>
+        <td><%= withdrawal_status_by_number(withdrawal_history.status_from) %></td>
+        <td><%= withdrawal_status_by_number(withdrawal_history.status_to) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -53,5 +53,13 @@ en:
         date: Date
         amount: Amount
         status: Status
+        history: History
+        show: Show
         action: Change Status
+      show:
+        title: Withdrawal history
+        date: Date
+        status_from: Previous status
+        status_to: New status
+        back: Back
 

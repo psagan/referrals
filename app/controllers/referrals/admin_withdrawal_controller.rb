@@ -1,6 +1,6 @@
 module Referrals
   class AdminWithdrawalController < ApplicationController
-    before_action :set_withdrawal, only: [:update]
+    before_action :set_withdrawal, only: [:show, :update]
 
     def index
       @date_from = get_date(:date_from)
@@ -23,6 +23,9 @@ module Referrals
 
     def filter
       redirect_to admin_withdrawal_index_path(date_from: get_date(:date_from), date_to: get_date(:date_to), status: params[:status])
+    end
+
+    def show
     end
 
     private
