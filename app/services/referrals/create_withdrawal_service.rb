@@ -14,7 +14,7 @@ module Referrals
 
     def call
       partner.transaction do
-        create_withdrawal && update_partner_amount
+        create_withdrawal && add_history && update_partner_amount
       end
     end
 
@@ -26,6 +26,12 @@ module Referrals
         partner: partner
       )
       withdrawal.save
+    end
+
+    def add_history
+      withdrawal.withdrawal_histories.create!(
+        status_to: withdrawal.status_number
+      )
     end
 
     def update_partner_amount

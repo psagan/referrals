@@ -38,7 +38,7 @@ module Referrals
     end
 
     def add_history
-      withdrawal.withdrawal_histories.create(
+      withdrawal.withdrawal_histories.create!(
         status_from: withdrawal.status_number,
         status_to: withdrawal.status_number(status)
       )

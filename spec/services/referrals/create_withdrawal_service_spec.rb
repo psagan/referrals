@@ -20,6 +20,10 @@ RSpec.describe Referrals::CreateWithdrawalService do
         expect { service.call }.to change { ::Referrals::Withdrawal.where(partner: partner).count }.by(1)
       end
 
+      it "creates withdrawal history" do
+        expect { service.call }.to change { ::Referrals::WithdrawalHistory.where(withdrawal: service.withdrawal).count }.by(1)
+      end
+
       it "decreases partner amount" do
         service.call
 
@@ -39,6 +43,10 @@ RSpec.describe Referrals::CreateWithdrawalService do
 
       it "does not create withdrawal" do
         expect { service.call }.to change { ::Referrals::Withdrawal.where(partner: partner).count }.by(0)
+      end
+
+      it "creates withdrawal history" do
+        expect { service.call }.to change { ::Referrals::WithdrawalHistory.where(withdrawal: service.withdrawal).count }.by(0)
       end
 
       it "does not update partner amount" do
