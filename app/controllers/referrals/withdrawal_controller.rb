@@ -1,20 +1,19 @@
 module Referrals
   class WithdrawalController < ApplicationController
+    include ::Referrals::FilterConcern
     before_action :set_partner, only: [:index, :new, :create]
+    before_action :set_filter_data, only: [:index, :filter]
 
     def index
-      @date_from = get_date(:date_from)
-      @date_to = get_date(:date_to)
       @withdrawals = ::Referrals::Withdrawal
         .by_partner(@partner)
         .by_date_from(@date_from)
         .by_date_to(@date_to)
-        .page(params[:page])
+        .page(@page)
     end
 
     def new
       @withdrawal = ::Referrals::Withdrawal.new
-
     end
 
     def create
@@ -27,7 +26,7 @@ module Referrals
     end
 
     def filter
-      redirect_to withdrawal_index_path(date_from: get_date(:date_from), date_to: get_date(:date_to))
+      redirect_to withdrawal_index_path(date_from: @date_from, date_to: @date_to, page: @page)
     end
 
     private
@@ -48,11 +47,5 @@ module Referrals
       User.first
     end
 
-    # @todo - common part - move to concern
-    def get_date(key)
-      Date.parse(params[key])
-    rescue
-      nil
-    end
   end
 end

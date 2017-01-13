@@ -1,7 +1,8 @@
 module Referrals
   class AdminWithdrawalController < ApplicationController
+    include ::Referrals::FilterConcern
     before_action :set_withdrawal, only: [:show, :update]
-    before_action :set_filter_data, except: [:filter]
+    before_action :set_filter_data
 
     def index
       @withdrawals = ::Referrals::Withdrawal
@@ -20,7 +21,7 @@ module Referrals
     end
 
     def filter
-      redirect_to admin_withdrawal_index_path(date_from: get_date(:date_from), date_to: get_date(:date_to), status: params[:status])
+      redirect_to admin_withdrawal_index_path(date_from: @date_from, date_to: @date_to, status: @status, page: @page)
     end
 
     def show
@@ -34,20 +35,6 @@ module Referrals
 
     def set_withdrawal
       @withdrawal = ::Referrals::Withdrawal.find(params[:id])
-    end
-
-    # @todo - move to concern
-    def get_date(key)
-      Date.parse(params[key])
-    rescue
-      nil
-    end
-
-    def set_filter_data
-      @date_from = get_date(:date_from)
-      @date_to = get_date(:date_to)
-      @status = params[:status]
-      @page = params[:page]
     end
 
   end
