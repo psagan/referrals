@@ -1,5 +1,5 @@
 <h1><%= t('referrals.admin_withdrawal.show.title') %></h1>
-<%= link_to t('referrals.admin_withdrawal.show.back'), admin_withdrawal_index_path %>
+<%= link_to t('referrals.admin_withdrawal.show.back'), admin_withdrawal_index_path(date_from: @date_from, date_to: @date_to, status: @status, page: @page) %>
 <table>
   <thead>
     <tr>

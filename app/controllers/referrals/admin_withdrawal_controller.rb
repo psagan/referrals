@@ -1,16 +1,14 @@
 module Referrals
   class AdminWithdrawalController < ApplicationController
     before_action :set_withdrawal, only: [:show, :update]
+    before_action :set_filter_data, except: [:filter]
 
     def index
-      @date_from = get_date(:date_from)
-      @date_to = get_date(:date_to)
-      @status = params[:status]
       @withdrawals = ::Referrals::Withdrawal
         .by_date_from(@date_from)
         .by_date_to(@date_to)
         .by_status(@status)
-        .page(params[:page])
+        .page(@page)
     end
 
     def update
@@ -43,6 +41,13 @@ module Referrals
       Date.parse(params[key])
     rescue
       nil
+    end
+
+    def set_filter_data
+      @date_from = get_date(:date_from)
+      @date_to = get_date(:date_to)
+      @status = params[:status]
+      @page = params[:page]
     end
 
   end
