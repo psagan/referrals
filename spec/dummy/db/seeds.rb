@@ -20,8 +20,8 @@ q = 10
   end
   partner_user.partner.withdrawals.take(2).each { |withdrawal| withdrawal.update(created_at: 34.days.ago) }
   # differentiate some statuses
-  partner_user.partner.withdrawals.first.cancelled!
-  partner_user.partner.withdrawals.last.paid!
+  ::Referrals::UpdateWithdrawalService.new(withdrawal: partner_user.partner.withdrawals.first, status: 'cancelled').call
+  ::Referrals::UpdateWithdrawalService.new(withdrawal: partner_user.partner.withdrawals.last, status: 'paid').call
 end
 
 
