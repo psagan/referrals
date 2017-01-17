@@ -1,6 +1,5 @@
 module Referrals
   class WithdrawalController < ApplicationController
-    include ::Referrals::CurrentUserConcern
     include ::Referrals::FilterConcern
     before_action :set_partner, only: [:index, :new, :create]
     before_action :set_filter_data, only: [:index, :filter]

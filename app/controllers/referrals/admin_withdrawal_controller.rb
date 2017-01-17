@@ -5,7 +5,7 @@ module Referrals
 
     before_action :set_withdrawal, only: [:show, :update]
     before_action :set_filter_data
-    before_action :redirect_to_root_unless_admin
+    before_action :unauthorized_unless_admin
 
     def index
       @withdrawals = ::Referrals::Withdrawal

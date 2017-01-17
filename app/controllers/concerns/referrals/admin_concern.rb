@@ -2,12 +2,8 @@ module Referrals
   module AdminConcern
     private
 
-    def admin?
-      Referrals.admin_callback.call
-    end
-
-    def redirect_to_root_unless_admin
-      redirect_to root_url unless admin?
+    def unauthorized_unless_admin
+      redirect_to root_url unless current_user.admin?
     end
   end
 end

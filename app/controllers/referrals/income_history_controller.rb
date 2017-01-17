@@ -1,6 +1,5 @@
 module Referrals
   class IncomeHistoryController < ApplicationController
-    include ::Referrals::CurrentUserConcern
     include ::Referrals::FilterConcern
     before_action :set_filter_data
 
