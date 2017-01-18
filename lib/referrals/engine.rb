@@ -10,5 +10,11 @@ module Referrals
       g.test_framework :rspec
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
     end
+
+    config.to_prepare do
+      ::ApplicationController.helper(Referrals::Engine.helpers)
+      ::ApplicationController.send(:include, Referrals::Engine.helpers)
+    end
+
   end
 end
