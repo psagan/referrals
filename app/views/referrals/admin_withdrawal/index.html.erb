@@ -23,7 +23,7 @@
         <td><%= link_to t('referrals.admin_withdrawal.index.show'), admin_withdrawal_path(withdrawal, date_from: @date_from, date_to: @date_to, status: @status, page: @page) %></td>
         <td>
           <%= form_for(withdrawal, url: admin_withdrawal_path(withdrawal, date_from: @date_from, date_to: @date_to, status: @status, page: @page)) do |f| %>
-              <%= f.select(:status, options_for_select(::Referrals::Withdrawal.statuses.keys.map {|k| [t("activerecord.attributes.referrals/withdrawal.status.#{k}"), k] }, @status)) %>
+              <%= f.select(:status, options_for_select(::Referrals::Withdrawal.statuses.keys.map {|k| [t("activerecord.attributes.referrals/withdrawal.status.#{k}"), k] }, withdrawal.status)) %>
               <%= f.submit(t('referrals.shared.save')) %>
           <% end %>
         </td>
