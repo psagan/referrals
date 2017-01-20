@@ -38,6 +38,8 @@ bin/rake db:migrate
 # Rails 5
 bin/rails db:migrate
 ```
+## Configuration file
+@todo ...
 
 
 ## Integration with Rails
@@ -89,6 +91,9 @@ class PaymentController < ActionController::Base
   
 end
 ```
+
+## Rescue from errors
+@todo ...
 
 ## Contributing
 Contribution directions go here.
