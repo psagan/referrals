@@ -19,7 +19,7 @@ RSpec.describe ::Referrals::IncomeHistoryController, type: :controller do
     it "assigns income histories for specific partner only" do
       get :index
 
-      expect(assigns(:income_histories)).to eq(partner_1.income_histories)
+      expect(assigns(:income_histories)).to eq(partner_1.income_histories.order('created_at DESC'))
     end
   end
 
