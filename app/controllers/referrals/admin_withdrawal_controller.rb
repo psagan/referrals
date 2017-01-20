@@ -7,6 +7,8 @@ module Referrals
     before_action :set_filter_data
     before_action :unauthorized_unless_admin
 
+    layout Referrals.admin_layout if Referrals.admin_layout
+
     def index
       @withdrawals = ::Referrals::Withdrawal
         .by_date_from(@date_from)

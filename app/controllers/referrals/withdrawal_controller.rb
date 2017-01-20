@@ -2,6 +2,7 @@ module Referrals
   class WithdrawalController < ApplicationController
     include ::Referrals::FilterConcern
     include ::Referrals::UnauthorizedConcern
+    include ::Referrals::LayoutConcern
 
     before_action :unauthorized_unless_partner
     before_action :set_partner, only: [:index, :new, :create]
