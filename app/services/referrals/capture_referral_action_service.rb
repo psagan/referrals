@@ -31,14 +31,18 @@ module Referrals
           referral: referral,
           amount: amount,
           share: partner.share,
-          share_amount: partner.share * amount,
+          share_amount: share_amount,
           info: info
       )
     end
 
     def update_partner_amount
-      partner.increase_amount(amount)
+      partner.increase_amount(share_amount)
       partner.save
+    end
+
+    def share_amount
+      partner.share * amount
     end
   end
 end

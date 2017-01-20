@@ -24,7 +24,7 @@ RSpec.describe Referrals::CaptureReferralActionService do
         expect { service.call }.to change { partner.income_histories.count }.by(1)
       end
 
-      it_behaves_like :changes_in_partner_amount, 1034, 3782
+      it_behaves_like :changes_in_partner_amount, 517, 3265
     end
 
     context "when referral is NOT assigned to partner" do
