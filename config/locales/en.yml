@@ -2,6 +2,7 @@ en:
   activerecord:
     attributes:
       referrals/withdrawal:
+        amount: Amount
         status:
           pending: Pending
           paid: Paid
@@ -22,7 +23,6 @@ en:
     menu:
       dashboard: Dashboard
       income_history: Income History
-      payment_history: Payment History
       withdrawal_history: Withdrawals
     dashboard:
       index:
