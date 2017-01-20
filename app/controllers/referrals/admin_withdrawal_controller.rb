@@ -1,6 +1,6 @@
 module Referrals
   class AdminWithdrawalController < ApplicationController
-    include ::Referrals::AdminConcern
+    include ::Referrals::UnauthorizedConcern
     include ::Referrals::FilterConcern
 
     before_action :set_withdrawal, only: [:show, :update]

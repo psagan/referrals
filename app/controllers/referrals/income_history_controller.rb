@@ -1,6 +1,9 @@
 module Referrals
   class IncomeHistoryController < ApplicationController
     include ::Referrals::FilterConcern
+    include ::Referrals::UnauthorizedConcern
+
+    before_action :unauthorized_unless_partner
     before_action :set_filter_data
 
     def index
