@@ -13,6 +13,7 @@ module Referrals
         .by_date_from(@date_from)
         .by_date_to(@date_to)
         .page(@page)
+        .order('created_at DESC')
     end
 
     def filter
