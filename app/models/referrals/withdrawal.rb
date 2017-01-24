@@ -16,7 +16,9 @@ module Referrals
     validates :amount, :partner, presence: true
     validate :amount_value
 
-    scope :by_status, -> (status) { where(status: status) unless status.blank? }
+    scope :by_status, -> (status) do
+      where(status: self.statuses[status.to_sym]) unless status.blank?
+    end
 
     def status_number(val = status)
       self.class.statuses[val]
