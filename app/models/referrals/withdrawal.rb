@@ -17,7 +17,7 @@ module Referrals
     validate :amount_value
 
     scope :by_status, -> (status) do
-      where(status: self.statuses[status.to_sym]) unless status.blank?
+      where(status: statuses[status.to_sym]) unless status.blank?
     end
 
     def status_number(val = status)
