@@ -45,7 +45,7 @@ module Referrals
     end
 
     def update_withdrawal
-      withdrawal.send('%s!' % status)
+      withdrawal.update_attribute('status', status)
     end
 
   end
