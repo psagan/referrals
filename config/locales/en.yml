@@ -1,4 +1,16 @@
 en:
+  activemodel:
+    attributes:
+      referrals/filter_data_dto:
+        date_from: Date from
+        date_to: Date to
+        status: Status
+        page: Page
+    errors:
+      models:
+        referrals/filter_data_dto:
+          date_to_greater_than_date_from: 'must be greater than date from'
+
   activerecord:
     attributes:
       referrals/withdrawal:
@@ -64,4 +76,8 @@ en:
         status_from: Previous status
         status_to: New status
         back: Back
+    dtos:
+      filter:
+        errors:
+          date_to_greater_than_date_from: 'must be greater than date from'
 

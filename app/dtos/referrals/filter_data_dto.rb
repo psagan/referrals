@@ -26,7 +26,7 @@ module Referrals
     def date_range_possible?
       return if date_from.blank? || date_to.blank?
       if date_from > date_to
-        errors.add(:date_to, 'must be greater than date to') # @todo - I18n
+        errors.add(:date_to, :date_to_greater_than_date_from)
       end
     end
 
