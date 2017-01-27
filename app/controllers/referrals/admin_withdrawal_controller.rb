@@ -11,10 +11,10 @@ module Referrals
 
     def index
       @withdrawals = ::Referrals::Withdrawal
-        .by_date_from(@date_from)
-        .by_date_to(@date_to)
-        .by_status(@status)
-        .page(@page)
+        .by_date_from(filter_data.date_from)
+        .by_date_to(filter_data.date_to)
+        .by_status(filter_data.status)
+        .page(filter_data.page)
     end
 
     def update
@@ -26,7 +26,7 @@ module Referrals
     end
 
     def filter
-      redirect_to admin_withdrawal_index_path(date_from: @date_from, date_to: @date_to, status: @status, page: @page)
+      redirect_to admin_withdrawal_index_path(filter_data.to_h)
     end
 
     def show

@@ -11,9 +11,9 @@ module Referrals
     def index
       @withdrawals = ::Referrals::Withdrawal
         .by_partner(@partner)
-        .by_date_from(@date_from)
-        .by_date_to(@date_to)
-        .page(@page)
+        .by_date_from(filter_data.date_from)
+        .by_date_to(filter_data.date_to)
+        .page(filter_data.page)
         .order('created_at DESC')
     end
 
@@ -31,7 +31,7 @@ module Referrals
     end
 
     def filter
-      redirect_to withdrawal_index_path(date_from: @date_from, date_to: @date_to, page: @page)
+      redirect_to withdrawal_index_path(filter_data.to_h)
     end
 
     private

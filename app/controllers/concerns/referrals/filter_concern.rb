@@ -3,17 +3,12 @@ module Referrals
 
     private
 
-    def set_filter_data
-      @date_from = get_date(:date_from)
-      @date_to = get_date(:date_to)
-      @status = params[:status]
-      @page = params[:page]
-    end
+    attr_reader :filter_data
 
-    def get_date(key)
-      Date.parse(params[key])
-    rescue
-      nil
+    def set_filter_data
+      @filter_data ||= ::Referrals::FilterDataDto.new(params).tap do |fd|
+        fd.valid?
+      end
     end
   end
 end

@@ -1,8 +1,11 @@
 <%= form_tag(action, method: 'post') do %>
     <%= label_tag(:date_from, t('referrals.shared.date_from')) %>
-    <%= date_field_tag(:date_from, @date_from || 1.month.ago.to_date) %>
+    <%= date_field_tag(:date_from, @filter_data.date_from || 1.month.ago.to_date) %>
     <%= label_tag(:date_to, t('referrals.shared.date_to')) %>
-    <%= date_field_tag(:date_to, @date_to || Date.today) %>
+    <%= date_field_tag(:date_to, @filter_data.date_to || Date.today) %>
+    <% if @filter_data.errors[:date_to].any? %>
+        <%= @filter_data.errors[:date_to].join('<br />') %>
+    <% end %>
     <%= yield %>
     <%= submit_tag(t('referrals.shared.filter')) %>
 <% end %>

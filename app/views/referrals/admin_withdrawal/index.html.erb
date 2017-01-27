@@ -1,7 +1,7 @@
 <h1><%= t('referrals.admin_withdrawal.index.title') %></h1>
 <%= render 'referrals/shared/filter_form', action: filter_admin_withdrawal_index_path do %>
   <%= label_tag(:status, t('referrals.admin_withdrawal.index.status')) %>
-  <%= select_tag(:status, options_for_select(::Referrals::Withdrawal.statuses.keys.map {|k| [t("activerecord.attributes.referrals/withdrawal.status.#{k}"), k] }, @status), include_blank: true) %>
+  <%= select_tag(:status, options_for_select(::Referrals::Withdrawal.statuses.keys.map {|k| [t("activerecord.attributes.referrals/withdrawal.status.#{k}"), k] }, @filter_data.status), include_blank: true) %>
 <% end %>
 <p>
 <table>
