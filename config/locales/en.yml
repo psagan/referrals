@@ -68,6 +68,7 @@ en:
       index:
         title: Admin Withdrawals
         date: Date
+        user: User
         amount: Amount
         status: Status
         history: History
