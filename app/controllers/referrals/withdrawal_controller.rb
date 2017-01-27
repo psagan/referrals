@@ -23,6 +23,7 @@ module Referrals
 
     def create
       if create_service.call
+        flash[:notice] = I18n.t('referrals.withdrawal.create.flash.success')
         redirect_to action: :index
       else
         @withdrawal = create_service.withdrawal

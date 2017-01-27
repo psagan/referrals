@@ -61,6 +61,9 @@ en:
         title: Withdraw money
         create: Withdraw
         amount: Available funds
+      create:
+        flash:
+          success: Successfull withdrawal.
     admin_withdrawal:
       index:
         title: Admin Withdrawals
