@@ -14,7 +14,9 @@ module Referrals
 
     def call
       partner.transaction do
-        create_withdrawal && add_history && update_partner_amount
+        (create_withdrawal && add_history && update_partner_amount).tap do |result|
+          Referrals::Events.after_withdrawal_create.call(self) if result
+        end
       end
     end
 
