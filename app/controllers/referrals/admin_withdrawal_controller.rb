@@ -15,6 +15,7 @@ module Referrals
         .by_date_to(filter_data.date_to)
         .by_status(filter_data.status)
         .page(filter_data.page)
+        .order(created_at: :desc)
     end
 
     def update
