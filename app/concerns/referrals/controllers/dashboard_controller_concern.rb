@@ -1,6 +1,6 @@
 module Referrals
-  module Concerns
-    module Controllers::DashboardControllerConcern
+  module Controllers
+    module DashboardControllerConcern
       extend ActiveSupport::Concern
 
       included do

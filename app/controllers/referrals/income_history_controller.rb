@@ -1,5 +1,5 @@
 module Referrals
   class IncomeHistoryController < ApplicationController
-    include ::Referrals::Concerns::Controllers::IncomeHistoryControllerConcern
+    include ::Referrals::Controllers::IncomeHistoryControllerConcern
   end
 end

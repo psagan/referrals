@@ -1,5 +1,5 @@
 module Referrals
   class AdminWithdrawalController < ApplicationController
-    include ::Referrals::Concerns::Controllers::AdminWithdrawalControllerConcern
+    include ::Referrals::Controllers::AdminWithdrawalControllerConcern
   end
 end

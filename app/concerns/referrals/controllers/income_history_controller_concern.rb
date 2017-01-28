@@ -1,6 +1,6 @@
 module Referrals
-  module Concerns
-    module Controllers::IncomeHistoryControllerConcern
+  module Controllers
+    module IncomeHistoryControllerConcern
       extend ActiveSupport::Concern
 
       included do
@@ -24,7 +24,6 @@ module Referrals
       def filter
         redirect_to income_history_index_path(filter_data.to_h)
       end
-
     end
   end
 end

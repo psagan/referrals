@@ -1,6 +1,6 @@
 module Referrals
-  module Concerns
-    module Controllers::AdminWithdrawalControllerConcern
+  module Controllers
+    module AdminWithdrawalControllerConcern
       extend ActiveSupport::Concern
 
       included do

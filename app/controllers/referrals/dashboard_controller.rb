@@ -1,5 +1,5 @@
 module Referrals
   class DashboardController < ApplicationController
-    include ::Referrals::Concerns::Controllers::DashboardControllerConcern
+    include ::Referrals::Controllers::DashboardConcern
   end
 end

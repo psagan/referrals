@@ -1,6 +1,6 @@
 module Referrals
-  module Concerns
-    module Controllers::WithdrawalControllerConcern
+  module Controllers
+    module WithdrawalControllerConcern
       extend ActiveSupport::Concern
 
       included do
@@ -53,8 +53,6 @@ module Referrals
       def create_service
         @create_service ||= ::Referrals::CreateWithdrawalService.new(amount: withdrawal_params[:amount], partner: @partner)
       end
-
-
 
     end
   end
