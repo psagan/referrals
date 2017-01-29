@@ -14,6 +14,10 @@ module Referrals
     config.to_prepare do
       ::ApplicationController.helper(Referrals::Engine.helpers)
       ::ApplicationController.send(:include, Referrals::Engine.helpers)
+
+      # Make the implementing application's helpers available to the engine.
+      # This is required for the overriding of engine views and helpers to work correctly.
+      Referrals::ApplicationController.helper Rails.application.helpers
     end
 
   end
