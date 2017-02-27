@@ -13,6 +13,12 @@ RSpec.describe ::Referrals::IncomeHistoryController, type: :controller do
     let!("income_histories_#{i}") { FactoryGirl.create_list('income_history', 5, referral: send("user_#{i}"), partner: send("partner_#{i}")) }
   end
 
+  ::Referrals::IncomeHistoryController.class_eval do
+    def current_user
+      User.first
+    end
+  end
+
   describe "GET index" do
 
     # [SECURITY CHECK]
