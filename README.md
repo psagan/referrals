@@ -39,7 +39,7 @@ bin/rake db:migrate
 bin/rails db:migrate
 ```
 ## Configuration file
-@todo ...
+This section need update
 
 
 ## Integration with Rails
